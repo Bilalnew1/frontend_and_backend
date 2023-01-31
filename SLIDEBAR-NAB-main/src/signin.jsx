@@ -6,7 +6,6 @@ import Image from "./pexels-antoni-shkraba-5306436.jpg";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-
 function SignIn({ setToken }) {
   //   const [Email, setEmail] = useState("");
   //   const [Pas, setpas] = useState("");
@@ -214,6 +213,7 @@ function SignIn({ setToken }) {
           </div>
         </div>
       </section>
+      
     </>
   );
 }

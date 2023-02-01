@@ -5,28 +5,33 @@ import { useEffect } from "react";
 import Image from "./pexels-antoni-shkraba-5306436.jpg";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
+import { initialState } from "./reduix/reducers/userSlice";
+import { useDispatch } from "react-redux";
+import { setLogin } from "./reduix/reducers/userSlice";
 
-function SignIn({ setToken }) {
-  //   const [Email, setEmail] = useState("");
-  //   const [Pas, setpas] = useState("");
+function SignIn() {
+  const [email, setEmailData] = useState(initialState.email);
+  const [pass, setPassData] = useState(initialState.password);
+  const [token, setToken] = useState(initialState.token);
+  const [hashpaworrd, setpsword] = useState("");
 
-  //   function onLinkClick(e) {
-  //     e.preventDefault();
-  //     alert(Email + "\n" + Pas);
+  console.log("mailtoken", token);
+  console.log("hashpaworrd", hashpaworrd);
+  const dispatch = useDispatch();
 
-  //     setEmail("");
-  //     setpas("");
-  //   }
-
-  const [email, setEmailData] = useState();
-  const [pass, setPassData] = useState();
-
+  const handlelogin = () => {
+    dispatch(setLogin({ email: email, password: hashpaworrd, token: token }));
+  };
+  console.log(handlelogin);
   const EMAIL = (e) => {
     setEmailData(e.target.value);
   };
   const PASSWORD = (e) => {
     setPassData(e.target.value);
   };
+  // function name(data) {
+
+  // }
 
   const submitForm = async (data) => {
     data.preventDefault();
@@ -35,18 +40,24 @@ function SignIn({ setToken }) {
       password: pass,
     };
 
+    console.log("axios", obj);
+
     try {
       const response = await axios({
         method: "post",
         url: "http://localhost:3000/login",
         data: obj,
       });
+      setToken(response.data.token);
+      setpsword(response.data.password);
+      // console.log(response.data.token);
       console.log("response", response);
     } catch (error) {
       console.log(error);
     }
   };
-
+  // console.log(submitForm.re);
+  // console.log(submitForm.response.data.token);
   const [theme, setTheme] = useState("dark");
   const element = document.documentElement;
   console.log(theme, "theme");
@@ -125,7 +136,7 @@ function SignIn({ setToken }) {
                   <input
                     name="email"
                     id="ema"
-                    // value={Email}
+                    // value={/}
                     autoComplete="off"
                     className="border  border-gray-400 w-full  font-sans rounded text-gray-800 pt-3 pb-3 placeholder:pl-5 dark:bg-slate-600 dark:border-transparent    "
                     type="email"
@@ -134,6 +145,7 @@ function SignIn({ setToken }) {
                     // onChange={(e) => {
                     //   setEmail(e.target.value);
                     // }}
+                    value={email}
                     onChange={EMAIL}
                   />
                 </div>
@@ -153,7 +165,7 @@ function SignIn({ setToken }) {
                     type="password"
                     placeholder="Enter your password"
                     id="pas"
-                    // value={Pas}
+                    value={pass}
                     name="password"
                     autoComplete="off"
                     className="border border-gray-400 
@@ -194,8 +206,9 @@ function SignIn({ setToken }) {
               </div>
               <div>
                 <button
-                  type="sign_in"
+                  type="submit"
                   className="bg-indigo-600 h-auto hover:drop-shadow-md   dark:bg-gray-600 dark: hover:bg-rose-500  pt-2 pb-2  font-normal text-slate-300 font-Raleway w-1/2 rounded"
+                  onClick={handlelogin}
                 >
                   Sign in
                 </button>
@@ -213,7 +226,6 @@ function SignIn({ setToken }) {
           </div>
         </div>
       </section>
-      
     </>
   );
 }

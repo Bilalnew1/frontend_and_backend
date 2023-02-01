@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
 //   name: "name",
-  gmail: "@gmail.com",
+  email: "@gmail.com",
   password: "password",
+  token: "token",
 };
 
 export const authSlice = createSlice({
@@ -12,8 +13,10 @@ export const authSlice = createSlice({
   reducers: {
     setLogin: (state, action) => {
     //   state.name = action.payload.name;
-      state.gmail = action.payload.gmail;
+      
+      state.email = action.payload.email;
       state.password = action.payload.password;
+      state.token = action.payload.token;
     },
     setLogout: () => initialState,
   },

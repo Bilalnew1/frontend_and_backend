@@ -4,6 +4,7 @@ import "./App.css";
 import { useEffect } from "react";
 import Image from "./pexels-antoni-shkraba-5306436.jpg";
 import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { initialState } from "./reduix/reducers/userSlice";
 import { useDispatch } from "react-redux";
@@ -14,13 +15,18 @@ function SignIn() {
   const [pass, setPassData] = useState(initialState.password);
   const [token, setToken] = useState(initialState.token);
   const [hashpaworrd, setpsword] = useState("");
+  const [statusbar, setstatus] = useState("");
 
   console.log("mailtoken", token);
   console.log("hashpaworrd", hashpaworrd);
   const dispatch = useDispatch();
 
   const handlelogin = () => {
-    dispatch(setLogin({ email: email, password: hashpaworrd, token: token }));
+    if (statusbar < 300 || statusbar > 199) {
+      dispatch(setLogin({ email: email, password: hashpaworrd, token: token }));
+    } else {
+      alert("you have not login");
+    }
   };
   console.log(handlelogin);
   const EMAIL = (e) => {
@@ -50,6 +56,7 @@ function SignIn() {
       });
       setToken(response.data.token);
       setpsword(response.data.password);
+      setstatus(response.status);
       // console.log(response.data.token);
       console.log("response", response);
     } catch (error) {
@@ -187,24 +194,9 @@ function SignIn() {
                 </div>
               </div>
 
-              <div className="remember flex  items-center">
-                {/* <div className="pl-2 ">
-                  <input type="checkbox" />
-                  <label
-                    htmlFor=""
-                    className="text-sm pl-2  font-Raleway font-medium  dark:text-gray-600"
-                  >
-                    Remember me
-                  </label>
-                </div> */}
-
-                {/* <div className="forget text-indigo-700 pl-12">
-                  <a href="" className="font-medium text-sm font-Raleway dark:text-gray-600">
-                    Forget password
-                  </a>
-                </div> */}
-              </div>
+              <div className="remember flex  items-center"></div>
               <div>
+                {/* <NavLink to='./dashbord'> */}
                 <button
                   type="submit"
                   className="bg-indigo-600 h-auto hover:drop-shadow-md   dark:bg-gray-600 dark: hover:bg-rose-500  pt-2 pb-2  font-normal text-slate-300 font-Raleway w-1/2 rounded"
@@ -212,6 +204,7 @@ function SignIn() {
                 >
                   Sign in
                 </button>
+                {/* </NavLink> */}
               </div>
               <NavLink to="/signup">Don't have an account? Sign up</NavLink>
             </form>

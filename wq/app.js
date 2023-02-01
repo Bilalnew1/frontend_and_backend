@@ -108,6 +108,7 @@ app.post("/login", (request, response) => {
             email: user.email,
             token,
             password: user.password,
+            
           });
 
           // response.status(200).send({

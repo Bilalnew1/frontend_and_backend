@@ -7,8 +7,9 @@ const dashboard = () => {
       
       </h1>
       <p>
-        name:
+        here the email of yours
       </p>
+      
       
     </div>
   );

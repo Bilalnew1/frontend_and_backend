@@ -4,11 +4,12 @@ import "./App.css";
 import { useEffect } from "react";
 import Image from "./pexels-antoni-shkraba-5306436.jpg";
 import { NavLink } from "react-router-dom";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import axios from "axios";
 import { initialState } from "./reduix/reducers/userSlice";
 import { useDispatch } from "react-redux";
 import { setLogin } from "./reduix/reducers/userSlice";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [email, setEmailData] = useState(initialState.email);
@@ -17,28 +18,18 @@ function SignIn() {
   const [hashpaworrd, setpsword] = useState("");
   const [statusbar, setstatus] = useState("");
 
-  console.log("mailtoken", token);
-  console.log("hashpaworrd", hashpaworrd);
-  const dispatch = useDispatch();
+  const navigate = useNavigate ();
 
-  const handlelogin = () => {
-    if (statusbar < 300 || statusbar > 199) {
-      dispatch(setLogin({ email: email, password: hashpaworrd, token: token }));
-    } else {
-      alert("you have not login");
-    }
-  };
-  console.log(handlelogin);
+  // console.log("mailtoken", token);
+  // console.log("hashpaworrd", hashpaworrd);
+
   const EMAIL = (e) => {
     setEmailData(e.target.value);
   };
   const PASSWORD = (e) => {
     setPassData(e.target.value);
   };
-  // function name(data) {
-
-  // }
-
+  
   const submitForm = async (data) => {
     data.preventDefault();
     const obj = {
@@ -54,20 +45,42 @@ function SignIn() {
         url: "http://localhost:3000/login",
         data: obj,
       });
+        // if (statusbar < 300 || statusbar > 199) {
+          dispatch(
+            setLogin({
+              email: email,
+              password: response.data.password,
+              token: response.data.token,
+            })
+      );
+      alert("login sucessfully")
+      navigate('/dashboard')
+       
       setToken(response.data.token);
       setpsword(response.data.password);
       setstatus(response.status);
-      // console.log(response.data.token);
+ 
       console.log("response", response);
     } catch (error) {
-      console.log(error);
+      alert("this user is not define")
+      navigate('/signin')
     }
   };
-  // console.log(submitForm.re);
-  // console.log(submitForm.response.data.token);
+  const dispatch = useDispatch();
+
+  // const handlelogin = () => {
+  //   if (statusbar < 300 || statusbar > 199) {
+  //     dispatch(setLogin({ email: email, password: hashpaworrd, token: token }));
+  
+  //   } else {
+  //     alert("you have not login");
+  //     // navigate("/signin")
+  //   }
+  // };
+
   const [theme, setTheme] = useState("dark");
   const element = document.documentElement;
-  console.log(theme, "theme");
+  // console.log(theme, "theme");
   const options = [
     {
       icon: "sunny",
@@ -200,7 +213,7 @@ function SignIn() {
                 <button
                   type="submit"
                   className="bg-indigo-600 h-auto hover:drop-shadow-md   dark:bg-gray-600 dark: hover:bg-rose-500  pt-2 pb-2  font-normal text-slate-300 font-Raleway w-1/2 rounded"
-                  onClick={handlelogin}
+                  // onClick={handlelogin}
                 >
                   Sign in
                 </button>

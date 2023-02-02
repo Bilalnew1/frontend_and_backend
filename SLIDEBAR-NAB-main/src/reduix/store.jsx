@@ -11,24 +11,24 @@ import {
 } from "redux-persist";
 import { rootReducer } from "./reducers/rootReducer";
 import storage from "redux-persist/lib/storage";
-// import { usersApi } from "./api/userApi";
 
 const persistConfig = {
   key: "Key",
   storage,
-  version: 1,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: persistedReducer ,
+  reducer: persistedReducer,
+  
   devTools: process.env.NODE_ENV === "development",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
+  
     }).concat([]),
 });
 

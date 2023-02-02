@@ -45,7 +45,7 @@ function SignIn() {
         url: "http://localhost:3000/login",
         data: obj,
       });
-        // if (statusbar < 300 || statusbar > 199) {
+ 
           dispatch(
             setLogin({
               email: email,
@@ -67,17 +67,7 @@ function SignIn() {
     }
   };
   const dispatch = useDispatch();
-
-  // const handlelogin = () => {
-  //   if (statusbar < 300 || statusbar > 199) {
-  //     dispatch(setLogin({ email: email, password: hashpaworrd, token: token }));
   
-  //   } else {
-  //     alert("you have not login");
-  //     // navigate("/signin")
-  //   }
-  // };
-
   const [theme, setTheme] = useState("dark");
   const element = document.documentElement;
   // console.log(theme, "theme");

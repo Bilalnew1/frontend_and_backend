@@ -1,15 +1,16 @@
 {
   "version": 2,
+  "name": "app",
   "builds": [
     {
-      "src": "./app.js",
-      "use": "@vercel/nodemone"
+      "src": "app.js",
+      "use": "@vercel/node"
     }
   ],
-  "routes":[
+  "routes": [
     {
-        "src":"/(.*)",
-        "des":"/"
+      "src": "/(.*)",
+      "des": "/"
     }
   ]
 }
